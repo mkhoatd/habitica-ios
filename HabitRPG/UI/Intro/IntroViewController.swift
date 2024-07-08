@@ -36,7 +36,7 @@ private struct Indicator: View {
     var body: some View {
         ZStack(alignment: .leading) {
             HStack(spacing: 0) {
-                ForEach(0..<pageCount) { _ in
+                ForEach(0..<pageCount, id: \.self) { _ in
                     Image(Asset.indicatorDiamondSelected.name).opacity(0.4)
                 }
             }

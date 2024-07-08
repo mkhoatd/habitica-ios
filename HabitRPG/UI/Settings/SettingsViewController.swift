@@ -216,7 +216,7 @@ class SettingsViewController: FormViewController, Themeable {
             row.title = L10n.cancelSubscription
             row.hidden = true
             }.onCellSelection({[weak self] (_, _) in
-                self?.userRepository.cancelSubscription()
+                _ = self?.userRepository.cancelSubscription()
             })
     }
     

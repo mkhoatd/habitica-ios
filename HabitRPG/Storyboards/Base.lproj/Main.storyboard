@@ -111,20 +111,35 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tasks" id="Ueo-OS-iQj">
-                        <leftBarButtonItems>
-                            <barButtonItem image="filter_icon" id="ncU-9d-5zK">
-                                <connections>
-                                    <segue destination="6vN-Em-JCA" kind="popoverPresentation" identifier="FilterSegue" popoverAnchorBarButtonItem="ncU-9d-5zK" id="WRT-c8-yJ5">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="eoD-0q-22r">
+                        <barButtonItem key="leftBarButtonItem" image="filter_icon" id="ncU-9d-5zK">
                             <connections>
-                                <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="PHp-cT-md6"/>
+                                <segue destination="6vN-Em-JCA" kind="popoverPresentation" identifier="FilterSegue" popoverAnchorBarButtonItem="ncU-9d-5zK" id="WRT-c8-yJ5">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Add reward" image="AddRewardSmall" id="re2-j0-J1J">
+                                <connections>
+                                    <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="696-63-M3K"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Add todo" image="AddToDoSmall" id="nAj-d1-wFg">
+                                <connections>
+                                    <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="6tw-63-M3K"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Add daily" image="AddDailySmall" id="rHo-gC-ggb">
+                                <connections>
+                                    <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="WX7-CS-CSr"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Add habit" image="AddHabitSmall" id="eoD-0q-22r">
+                                <connections>
+                                    <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="PHp-cT-md6"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uhk-yY-21B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -212,9 +227,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="add_icon" id="QMS-gq-G3V">
-                            <connections>
-                                <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="WX7-CS-CSr"/>
-                            </connections>
+
                         </barButtonItem>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="ijN-nO-dRE">
@@ -257,9 +270,6 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="add_icon" id="txM-DJ-1EC">
-                            <connections>
-                                <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="6tw-63-M3K"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1Tw-4Z-2aB">
@@ -3034,9 +3044,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="HHL-mH-FJc">
                         <barButtonItem key="rightBarButtonItem" image="add_icon" id="NiR-ou-IuB">
-                            <connections>
-                                <segue destination="s5d-Hq-9de" kind="presentation" identifier="FormSegue" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="tO1-JH-hWy"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
@@ -4135,6 +4142,10 @@ a matching subscription automatically after sending your gift.</string>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.44783598184585571" green="0.10848048329353333" blue="0.9984632134437561" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
+        <image name="AddDailySmall" width="20" height="19"/>
+        <image name="AddHabitSmall" width="24" height="17"/>
+        <image name="AddRewardSmall" width="21" height="17"/>
+        <image name="AddToDoSmall" width="18" height="18"/>
         <image name="add_icon" width="20" height="20"/>
         <image name="adventureGuideArt" width="153" height="46"/>
         <image name="checkmark_small" width="13" height="10"/>

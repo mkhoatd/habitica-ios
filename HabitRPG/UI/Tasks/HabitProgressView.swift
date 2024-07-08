@@ -237,7 +237,7 @@ struct HabitProgressView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 30)
                 HStack {
-                    ForEach(0..<numberOfDays) { offset in
+                    ForEach(0..<numberOfDays, id: \.self) { offset in
                         let examinedDay = today.addingTimeInterval(-(Double((6-offset) * 24 * 60 * 60)))
                         let day = calendar.component(.day, from: examinedDay)
                         VStack {

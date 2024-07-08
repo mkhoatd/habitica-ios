@@ -6,15 +6,18 @@
 //  Copyright © 2017 HabitRPG Inc. All rights reserved.
 //
 
-import Foundation
 import Down
+import Foundation
 import ReactiveSwift
 import UIKit
 
 extension Down {
 
-    func toHabiticaAttributedStringAsync(baseFont: UIFont = UIFontMetrics.default.scaledSystemFont(ofSize: 15),
-                                         textColor: UIColor = UIColor.gray100, onComplete: @escaping ((NSMutableAttributedString?) -> Void)) {
+    func toHabiticaAttributedStringAsync(
+        baseFont: UIFont = UIFontMetrics.default.scaledSystemFont(ofSize: 15),
+        textColor: UIColor = UIColor.gray100,
+        onComplete: @escaping ((NSMutableAttributedString?) -> Void)
+    ) {
         DispatchQueue.global(qos: .background).async {
             let string = try? self.toHabiticaAttributedString()
             DispatchQueue.main.async {
@@ -22,74 +25,104 @@ extension Down {
             }
         }
     }
-    
-    func toHabiticaAttributedString(baseSize: CGFloat = 15,
-                                    textColor: UIColor = ThemeService.shared.theme.primaryTextColor, useAST: Bool = true, highlightUsernames: Bool = true) throws -> NSMutableAttributedString {
+
+    func toHabiticaAttributedString(
+        baseSize: CGFloat = 15,
+        textColor: UIColor = ThemeService.shared.theme.primaryTextColor, useAST: Bool = true,
+        highlightUsernames: Bool = true
+    ) throws -> NSMutableAttributedString {
         let mentions = matchUsernames(text: markdownString)
-        
-        if markdownString.range(of: "[*_#\\[<>`]|\\A\\d+[\\.\\)]", options: .regularExpression, range: nil, locale: nil) == nil {
-            let string = NSMutableAttributedString(string: markdownString,
-                                                   attributes: [.font: UIFontMetrics.default.scaledSystemFont(ofSize: baseSize),
-                                                                .foregroundColor: textColor])
+
+        if markdownString.range(
+            of: "[*_#\\[<>`]|\\A\\d+[\\.\\)]", options: .regularExpression, range: nil, locale: nil)
+            == nil
+        {
+            let string = NSMutableAttributedString(
+                string: markdownString,
+                attributes: [
+                    .font: UIFontMetrics.default.scaledSystemFont(ofSize: baseSize),
+                    .foregroundColor: textColor,
+                ])
             applyParagraphStyling(string)
-            applyCustomChanges(string, mentions: mentions, highlightUsernames: highlightUsernames, baseSize: baseSize)
+            applyCustomChanges(
+                string, mentions: mentions, highlightUsernames: highlightUsernames,
+                baseSize: baseSize)
             return string
         }
-        guard let string = try? (useAST ? toAttributedString(styler: HabiticaStyler(ofSize: baseSize, textColor: textColor)) : toAttributedString()).mutableCopy() as? NSMutableAttributedString else {
-            let string = NSMutableAttributedString(string: markdownString,
-                                                  attributes: [.font: UIFontMetrics.default.scaledSystemFont(ofSize: baseSize),
-                                                               .foregroundColor: textColor])
+        guard
+            let string = try?
+                (useAST
+                ? toAttributedString(styler: HabiticaStyler(ofSize: baseSize, textColor: textColor))
+                : toAttributedString()).mutableCopy() as? NSMutableAttributedString
+        else {
+            let string = NSMutableAttributedString(
+                string: markdownString,
+                attributes: [
+                    .font: UIFontMetrics.default.scaledSystemFont(ofSize: baseSize),
+                    .foregroundColor: textColor,
+                ])
             applyParagraphStyling(string)
-            applyCustomChanges(string, mentions: mentions, highlightUsernames: highlightUsernames, baseSize: baseSize)
+            applyCustomChanges(
+                string, mentions: mentions, highlightUsernames: highlightUsernames,
+                baseSize: baseSize)
             return string
         }
         if !useAST {
             let scaledBaseSize = UIFontMetrics.default.scaledSystemFont(ofSize: baseSize).pointSize
-            string.enumerateAttribute(NSAttributedString.Key.font,
-                                      in: NSRange(location: 0, length: string.length),
-                                      options: NSAttributedString.EnumerationOptions.longestEffectiveRangeNotRequired,
-                                      using: { (value, range, _) in
-                                        if let oldFont = value as? UIFont {
-                                            let font: UIFont
-                                            let fontSizeOffset = oldFont.pointSize - 12
-                                            if oldFont.fontDescriptor.symbolicTraits.contains(.traitBold) && oldFont.fontDescriptor.symbolicTraits.contains(.traitItalic) {
-                                                font = UIFont.boldItalicSystemFont(ofSize: scaledBaseSize+fontSizeOffset)
-                                            } else if oldFont.fontDescriptor.symbolicTraits.contains(.traitBold) {
-                                                font = UIFont.boldSystemFont(ofSize: scaledBaseSize+fontSizeOffset)
-                                            } else if oldFont.fontDescriptor.symbolicTraits.contains(.traitItalic) {
-                                                font = UIFont.italicSystemFont(ofSize: scaledBaseSize+fontSizeOffset)
-                                            } else {
-                                                font = UIFont.systemFont(ofSize: scaledBaseSize+fontSizeOffset)
-                                            }
-                                            string.addAttribute(NSAttributedString.Key.font, value: font, range: range)
-                                            string.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor, range: range)
-                                        }
-            })
+            string.enumerateAttribute(
+                NSAttributedString.Key.font,
+                in: NSRange(location: 0, length: string.length),
+                options: NSAttributedString.EnumerationOptions.longestEffectiveRangeNotRequired,
+                using: { (value, range, _) in
+                    if let oldFont = value as? UIFont {
+                        let font: UIFont
+                        let fontSizeOffset = oldFont.pointSize - 12
+                        if oldFont.fontDescriptor.symbolicTraits.contains(.traitBold)
+                            && oldFont.fontDescriptor.symbolicTraits.contains(.traitItalic)
+                        {
+                            font = UIFont.boldItalicSystemFont(
+                                ofSize: scaledBaseSize + fontSizeOffset)
+                        } else if oldFont.fontDescriptor.symbolicTraits.contains(.traitBold) {
+                            font = UIFont.boldSystemFont(ofSize: scaledBaseSize + fontSizeOffset)
+                        } else if oldFont.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+                            font = UIFont.italicSystemFont(ofSize: scaledBaseSize + fontSizeOffset)
+                        } else {
+                            font = UIFont.systemFont(ofSize: scaledBaseSize + fontSizeOffset)
+                        }
+                        string.addAttribute(NSAttributedString.Key.font, value: font, range: range)
+                        string.addAttribute(
+                            NSAttributedString.Key.foregroundColor, value: textColor, range: range)
+                    }
+                })
         }
-        applyCustomChanges(string, mentions: mentions, highlightUsernames: highlightUsernames, baseSize: baseSize)
+        applyCustomChanges(
+            string, mentions: mentions, highlightUsernames: highlightUsernames, baseSize: baseSize)
 
         if !useAST {
             if string.length == 0 {
                 return string
             }
-            string.deleteCharacters(in: NSRange(location: string.length-1, length: 1))
+            string.deleteCharacters(in: NSRange(location: string.length - 1, length: 1))
         }
         return string
     }
-    
-    private func applyCustomChanges(_ string: NSMutableAttributedString, mentions: [String], highlightUsernames: Bool, baseSize: CGFloat) {
+
+    private func applyCustomChanges(
+        _ string: NSMutableAttributedString, mentions: [String], highlightUsernames: Bool,
+        baseSize: CGFloat
+    ) {
         if mentions.isEmpty == false && highlightUsernames {
             applyMentions(string, mentions: mentions)
         }
         applyCustomEmoji(string, size: baseSize)
-        
+
         var range = string.mutableString.range(of: "<br>")
         while range.length > 0 {
             string.replaceCharacters(in: range, with: "\n")
             range = string.mutableString.range(of: "<br>")
         }
     }
-    
+
     private func applyMentions(_ string: NSMutableAttributedString, mentions: [String]) {
         let text = string.mutableString
         for mention in mentions {
@@ -97,7 +130,7 @@ extension Down {
             string.addAttribute(.foregroundColor, value: UIColor.purple400, range: range)
         }
     }
-    
+
     private func applyCustomEmoji(_ string: NSMutableAttributedString, size: CGFloat) {
         let text = string.mutableString
         let range = text.range(of: ":melior:")
@@ -109,19 +142,20 @@ extension Down {
             string.replaceCharacters(in: range, with: addedString)
         }
     }
-    
+
     private func applyParagraphStyling(_ string: NSMutableAttributedString) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 3
         paragraphStyle.paragraphSpacing = 7
         string.addAttribute(.paragraphStyle, value: paragraphStyle)
     }
-    
+
     private func matchUsernames(text: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: "\\B@[-\\w]+")
-            let results = regex.matches(in: text,
-                                        range: NSRange(text.startIndex..., in: text))
+            let results = regex.matches(
+                in: text,
+                range: NSRange(text.startIndex..., in: text))
             return results.map {
                 if let range = Range($0.range, in: text) {
                     return String(text[range])
@@ -137,10 +171,10 @@ extension Down {
 }
 
 class HabiticaMarkdownHelper: NSObject {
-    
+
     @objc
     static func toHabiticaAttributedString(_ text: String) throws -> NSMutableAttributedString {
-        if let attributedString =  try? Down(markdownString: text).toHabiticaAttributedString() {
+        if let attributedString = try? Down(markdownString: text).toHabiticaAttributedString() {
             return attributedString
         }
         return NSMutableAttributedString(string: text)
@@ -153,7 +187,7 @@ private class HabiticaStyler: DownStyler {
         paragraphStyle.headIndent = CGFloat(prefixLength * 12)
         str.addAttribute(.paragraphStyle, value: paragraphStyle)
     }
-    
+
     override func style(heading str: NSMutableAttributedString, level: Int) {
         switch level {
         case 1:
@@ -176,25 +210,28 @@ private class HabiticaStyler: DownStyler {
         paragraphStyle.paragraphSpacing = 16
         str.addAttribute(.paragraphStyle, value: paragraphStyle)
     }
-    
+
     let baseSize: CGFloat
     let textColor: UIColor
-    
+
     init(ofSize baseSize: CGFloat, textColor: UIColor) {
         self.baseSize = baseSize
         self.textColor = textColor
     }
-    
+
     var listPrefixAttributes: [NSAttributedString.Key: Any] {
-            return [
+        return [
             .foregroundColor: ThemeService.shared.theme.primaryTextColor
         ]
     }
-    
+
     override func style(codeBlock str: NSMutableAttributedString, fenceInfo: String?) {
-        str.addAttributes([
-            .font: UIFontMetrics.default.scaledFont(for: UIFont(name: "Menlo", size: baseSize) ?? UIFont.systemFont(ofSize: baseSize)),
-            .foregroundColor: ThemeService.shared.theme.primaryTextColor
+        str.addAttributes(
+            [
+                .font: UIFontMetrics.default.scaledFont(
+                    for: UIFont(name: "Menlo", size: baseSize)
+                        ?? UIFont.systemFont(ofSize: baseSize)),
+                .foregroundColor: ThemeService.shared.theme.primaryTextColor,
             ], range: NSRange(location: 0, length: str.length))
     }
 
@@ -204,11 +241,11 @@ private class HabiticaStyler: DownStyler {
         paragraphStyle.paragraphSpacing = 7
         str.addAttribute(.paragraphStyle, value: paragraphStyle)
     }
-    
+
     override func style(listItemPrefix str: NSMutableAttributedString) {
         str.addAttribute(.font, value: UIFontMetrics.default.scaledSystemFont(ofSize: baseSize))
         str.addAttribute(.foregroundColor, value: textColor)
-        
+
         var listDotLocation = 0
 
         for char in str.string {
@@ -226,24 +263,31 @@ private class HabiticaStyler: DownStyler {
     }
 
     override func style(code str: NSMutableAttributedString) {
-        str.addAttributes([
+        str.addAttributes(
+            [
                 .foregroundColor: UIColor.red50,
-                .font: UIFontMetrics.default.scaledFont(for: UIFont(name: "Menlo", size: baseSize) ?? UIFont.systemFont(ofSize: baseSize))
+                .font: UIFontMetrics.default.scaledFont(
+                    for: UIFont(name: "Menlo", size: baseSize)
+                        ?? UIFont.systemFont(ofSize: baseSize)),
             ], range: NSRange(location: 0, length: str.length))
     }
 
     override func style(emphasis str: NSMutableAttributedString) {
         if (str.attribute(.font, at: 0, effectiveRange: nil) as? UIFont)?.isBold == true {
-            str.addAttribute(.font, value: UIFontMetrics.default.scaledBoldItalicSystemFont(ofSize: baseSize))
+            str.addAttribute(
+                .font, value: UIFontMetrics.default.scaledBoldItalicSystemFont(ofSize: baseSize))
         } else {
-            str.addAttribute(.font, value: UIFontMetrics.default.scaledItalicSystemFont(ofSize: baseSize))
+            str.addAttribute(
+                .font, value: UIFontMetrics.default.scaledItalicSystemFont(ofSize: baseSize))
         }
     }
     override func style(strong str: NSMutableAttributedString) {
         if (str.attribute(.font, at: 0, effectiveRange: nil) as? UIFont)?.isItalic == true {
-            str.addAttribute(.font, value: UIFontMetrics.default.scaledBoldItalicSystemFont(ofSize: baseSize))
+            str.addAttribute(
+                .font, value: UIFontMetrics.default.scaledBoldItalicSystemFont(ofSize: baseSize))
         } else {
-            str.addAttribute(.font, value: UIFontMetrics.default.scaledBoldSystemFont(ofSize: baseSize))
+            str.addAttribute(
+                .font, value: UIFontMetrics.default.scaledBoldSystemFont(ofSize: baseSize))
         }
     }
     override func style(link str: NSMutableAttributedString, title: String?, url: String?) {
@@ -257,35 +301,31 @@ private class HabiticaStyler: DownStyler {
         }
         str.addAttribute(.link, value: url, range: range)
     }
-//    override func style(image str: NSMutableAttributedString, title: String?, url: String?) {
-//        if let imageURL = URL(string: url ?? ""), let data = try? Data(contentsOf: imageURL) {
-//            let attachment = NSTextAttachment()
-//            let resizableImage = UIImage(data: data)
-//            attachment.image = resizableImage?.resize(maxWidthHeight: 200)
-//            let addedString = NSAttributedString(attachment: attachment)
-//            str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
-//        }
-//    }
     override func style(image str: NSMutableAttributedString, title: String?, url: String?) {
-        guard let imageURL = URL(string: url ?? "") else { return }
-
-        let task = URLSession.shared.dataTask(with: imageURL) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Failed to load image data: \(String(describing: error))")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                if let resizableImage = UIImage(data: data)?.resize(maxWidthHeight: 200) {
-                    let attachment = NSTextAttachment()
-                    attachment.image = resizableImage
-                    let addedString = NSAttributedString(attachment: attachment).string
-                    str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
-                }
-            }
+        if let imageURL = URL(string: url ?? ""), let data = try? Data(contentsOf: imageURL) {
+            let attachment = NSTextAttachment()
+            let resizableImage = UIImage(data: data)
+            attachment.image = resizableImage?.resize(maxWidthHeight: 200)
+            let addedString = NSAttributedString(attachment: attachment)
+            str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
+            print("final stringggggg \(str.string)")
         }
-        task.resume()
     }
+    // override func style(image str: NSMutableAttributedString, title: String?, url: String?) {
+    //     let attachment = NSTextAttachment()
+    //     let addedString = NSAttributedString(attachment: attachment)
+    //     str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
+    //     if let imageURL = URL(string: url ?? "") {
+    //         URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+    //             if let data = data, let image = UIImage(data: data) {
+    //                 attachment.image = image.resize(maxWidthHeight: 200)
+    //                 DispatchQueue.main.async() {
+    //                     self.imageStyleCallback()
+    //                 }
+    //             }
+    //         }.resume()
+    //     }
+    // }
 }
 
 extension NSMutableAttributedString {
