@@ -39,10 +39,10 @@
             </objects>
             <point key="canvasLocation" x="-754" y="-704"/>
         </scene>
-        <!--Tasks-->
+        <!--Tasks Board View Controller-->
         <scene sceneID="oeq-2A-hsJ">
             <objects>
-                <viewController storyboardIdentifier="TaskBoardViewController" id="44F-EE-hFM" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskBoardViewController" id="44F-EE-hFM" customClass="TaskBoardViewController" customModule="Habitica" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zQk-vw-GYw"/>
                         <viewControllerLayoutGuide type="bottom" id="wBG-mV-WYQ"/>
@@ -226,9 +226,7 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="QMS-gq-G3V">
-
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="QMS-gq-G3V"/>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="ijN-nO-dRE">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -269,8 +267,7 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="txM-DJ-1EC">
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="txM-DJ-1EC"/>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1Tw-4Z-2aB">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -3043,8 +3040,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="HHL-mH-FJc">
-                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="NiR-ou-IuB">
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="add_icon" id="NiR-ou-IuB"/>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yZ-pb-YRt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4123,7 +4119,7 @@ a matching subscription automatically after sending your gift.</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FI8-Gh-C6n"/>
+        <segue reference="yNZ-LP-06T"/>
         <segue reference="2vn-wQ-bqg"/>
         <segue reference="FPm-Dv-Zos"/>
         <segue reference="x0h-sG-Le1"/>
@@ -4133,7 +4129,7 @@ a matching subscription automatically after sending your gift.</string>
         <segue reference="ETz-qE-xC2"/>
         <segue reference="jU9-l6-uQc"/>
         <segue reference="nYO-SY-Og4"/>
-        <segue reference="1Wb-WL-WiI"/>
+        <segue reference="u8W-Xm-nze"/>
         <segue reference="j9F-en-5nH"/>
         <segue reference="dho-1x-ad8"/>
         <segue reference="PHp-cT-md6"/>

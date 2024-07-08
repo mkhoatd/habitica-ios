@@ -533,6 +533,7 @@
 		7A84E1B222898E9F0081E96F /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84E1B122898E9F0081E96F /* TaskManager.swift */; };
 		7A84E1B32289963E0081E96F /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC884D2010CCC2002B3D3F /* BaseRepository.swift */; };
 		7A84E1B42289968B0081E96F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BD6391F557FE700E22935 /* AuthenticationManager.swift */; };
+		B05464752C3C3E0700527BC2 /* TaskBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05464742C3C3E0700527BC2 /* TaskBoardViewController.swift */; };
 		C8415994225F8B7800989FB8 /* Habitica_Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8415993225F8B7800989FB8 /* Habitica_Snapshots.swift */; };
 		C841599C225F8C2A00989FB8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C841599B225F8C2900989FB8 /* SnapshotHelper.swift */; };
 		C85A68AF2527812400EED0D6 /* SpellTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A68AE2527812400EED0D6 /* SpellTabBarController.swift */; };
@@ -1200,6 +1201,7 @@
 		7A84E1A3228928AD0081E96F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A84E1B122898E9F0081E96F /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		7A84E1B6228A5CB40081E96F /* Habitica Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Habitica Intents.entitlements"; sourceTree = "<group>"; };
+		B05464742C3C3E0700527BC2 /* TaskBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardViewController.swift; sourceTree = "<group>"; };
 		B0D6333E2C3C210500047B8F /* Habitica copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Habitica copy-Info.plist"; path = "/Users/mkhoatd/Developer/habitica-ios/Habitica copy-Info.plist"; sourceTree = "<absolute>"; };
 		C8415991225F8B7800989FB8 /* Habitica Snapshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Habitica Snapshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8415993225F8B7800989FB8 /* Habitica_Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habitica_Snapshots.swift; sourceTree = "<group>"; };
@@ -2594,6 +2596,7 @@
 				4994065920C83D4F0084CC40 /* DailyTableViewController.swift */,
 				49391ED020C9C898002B2BB5 /* HabitTableViewController.swift */,
 				49391ED220C9C94B002B2BB5 /* ToDoTableViewController.swift */,
+				B05464742C3C3E0700527BC2 /* TaskBoardViewController.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -3386,6 +3389,7 @@
 				290B6287207CD6B5007287C4 /* GroupDetailViewController.swift in Sources */,
 				29D16C8525A72211001D9A61 /* UITraitCollection-Extensions.swift in Sources */,
 				290B6298207E3F37007287C4 /* LeaveGroupInteractor.swift in Sources */,
+				B05464752C3C3E0700527BC2 /* TaskBoardViewController.swift in Sources */,
 				328C951E24A2C13100293E16 /* LinksOnlyTextView.swift in Sources */,
 				2912C3C522CB955B00BC485F /* QuestInviteNotificationCell.swift in Sources */,
 				298119B11F50453100F9FB39 /* QuestGoalView.swift in Sources */,
