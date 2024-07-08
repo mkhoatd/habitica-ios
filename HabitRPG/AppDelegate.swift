@@ -208,11 +208,14 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
             // when running tests use a fresh in-memory database on each launch
             config.inMemoryIdentifier = String(Date().timeIntervalSince1970)
         } else {
-            // let teamIdentifierPrefix = Bundle.main.infoDictionary!["TeamIdentifierPrefix"] as! String
-            // let gi = "\(teamIdentifierPrefix).com.mkhoatd.habitica"
+            let teamIdentifierPrefix = Bundle.main.infoDictionary!["TeamIdentifierPrefix"] as! String
+            let gi = "\(teamIdentifierPrefix)com.mkhoatd.habitica"
             let fileUrl = FileManager.default
-                .containerURL(forSecurityApplicationGroupIdentifier: "group.com.mkhoatd.habitica")?
+                .containerURL(forSecurityApplicationGroupIdentifier: gi)?
                 .appendingPathComponent("habitica.realm")
+            // let fileUrl = FileManager.default
+            //     .containerURL(forSecurityApplicationGroupIdentifier: "group.com.mkhoatd.habitica")?
+            //     .appendingPathComponent("habitica.realm")
             if let url = fileUrl {
                 config.fileURL = url
             }
