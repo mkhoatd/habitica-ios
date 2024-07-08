@@ -8,7 +8,6 @@
 
 import UIKit
 #if !targetEnvironment(macCatalyst)
-import FirebaseAnalytics
 import SwiftUI
 #endif
 import Habitica_Models
@@ -32,9 +31,6 @@ class SharingManager {
         let avc = UIActivityViewController(activityItems: sharedItems, applicationActivities: nil)
         avc.popoverPresentationController?.sourceView = sourceView ?? viewController.view
         viewController.present(avc, animated: true, completion: nil)
-        #if !targetEnvironment(macCatalyst)
-        Analytics.logEvent("shared", parameters: ["identifier": identifier])
-        #endif
     }
 
     static func share(pet: AnimalProtocol, shareIdentifier: String = "pet") {

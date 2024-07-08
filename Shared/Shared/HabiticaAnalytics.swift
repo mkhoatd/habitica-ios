@@ -13,7 +13,6 @@ public class HabiticaAnalytics {
     public static let shared = HabiticaAnalytics()
     
     public func setUserID(_ userID: String?) {
-        Amplitude.instance().setUserId(userID)
     }
     
     public func logNavigationEvent(_ pageName: String) {
@@ -23,10 +22,8 @@ public class HabiticaAnalytics {
             "hitType": "pageview",
             "page": pageName,
         ]
-        Amplitude.instance()?.logEvent("navigate", withEventProperties: properties)
     }
     
     public func log(_ eventName: String, withEventProperties properties: [AnyHashable: Any]) {
-        Amplitude.instance()?.logEvent(eventName, withEventProperties: properties)
     }
 }

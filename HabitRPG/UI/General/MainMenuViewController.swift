@@ -88,11 +88,36 @@ class MenuItem {
         MenuItem(key: .skills, title: L10n.Menu.skills, vcInstantiator: StoryboardScene.User.spellsViewController.instantiate),
         MenuItem(key: .stats, title: L10n.Titles.stats, vcInstantiator: StoryboardScene.User.attributePointsViewController.instantiate),
         MenuItem(key: .achievements, title: L10n.Titles.achievements, vcInstantiator: StoryboardScene.User.achievementsCollectionViewController.instantiate),
-        MenuItem(key: .market, title: L10n.Locations.market, segue: StoryboardSegue.Main.showMarketSegue.rawValue),
-        MenuItem(key: .questShop, title: L10n.Menu.questShop, segue: StoryboardSegue.Main.showQuestShopSegue.rawValue),
-        MenuItem(key: .seasonalShop, title: L10n.Locations.seasonalShop, segue: StoryboardSegue.Main.showSeasonalShopSegue.rawValue),
-        MenuItem(key: .customizationShop, title: L10n.Locations.customizations, segue: StoryboardSegue.Main.showCustomizationShopSegue.rawValue),
-        MenuItem(key: .timeTravelersShop, title: L10n.Locations.timeTravelersShop, segue: StoryboardSegue.Main.showTimeTravelersSegue.rawValue),
+        MenuItem(key: .market, title: L10n.Locations.market, vcInstantiator: {
+            let vc = StoryboardScene.Shop.shopViewController.instantiate()
+            vc.shopIdentifier = Constants.MarketKey
+            return vc
+        }),
+        MenuItem(key: .questShop, title: L10n.Menu.questShop, vcInstantiator: {
+            let vc = StoryboardScene.Shop.shopViewController.instantiate()
+            vc.shopIdentifier = Constants.QuestShopKey
+            return vc
+        }),
+        MenuItem(key: .seasonalShop, title: L10n.Locations.seasonalShop, vcInstantiator: {
+            let vc = StoryboardScene.Shop.shopViewController.instantiate()
+            vc.shopIdentifier = Constants.SeasonalShopKey
+            return vc
+        }),
+        MenuItem(key: .customizationShop, title: L10n.Locations.customizations, vcInstantiator: {
+            let vc = StoryboardScene.Shop.shopViewController.instantiate()
+            vc.shopIdentifier = Constants.CustomizationShopKey
+            return vc
+        }),
+        MenuItem(key: .timeTravelersShop, title: L10n.Locations.timeTravelersShop, vcInstantiator: {
+            let vc = StoryboardScene.Shop.shopViewController.instantiate()
+            vc.shopIdentifier = Constants.TimeTravelersShopKey
+            return vc
+        }),
+//        MenuItem(key: .market, title: L10n.Locations.market, segue: StoryboardSegue.Main.showMarketSegue.rawValue),
+//        MenuItem(key: .questShop, title: L10n.Menu.questShop, segue: StoryboardSegue.Main.showQuestShopSegue.rawValue),
+//        MenuItem(key: .seasonalShop, title: L10n.Locations.seasonalShop, segue: StoryboardSegue.Main.showSeasonalShopSegue.rawValue),
+//        MenuItem(key: .customizationShop, title: L10n.Locations.customizations, segue: StoryboardSegue.Main.showCustomizationShopSegue.rawValue),
+//        MenuItem(key: .timeTravelersShop, title: L10n.Locations.timeTravelersShop, segue: StoryboardSegue.Main.showTimeTravelersSegue.rawValue),
         MenuItem(key: .customizeAvatar, title: L10n.Menu.customizeAvatar, vcInstantiator: StoryboardScene.Main.avatarOverviewViewController.instantiate),
         MenuItem(key: .equipment, title: L10n.Titles.equipment, vcInstantiator: StoryboardScene.Main.equipmentOverviewViewController.instantiate),
         MenuItem(key: .items, title: L10n.Titles.items, vcInstantiator: StoryboardScene.Main.itemsViewController.instantiate),

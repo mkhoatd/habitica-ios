@@ -6,13 +6,13 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.habitrpg.habitica</string>
+		<string>group.mkhoatd.habitica</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.habitrpg.ios.Habitica</string>
+		<string>$(AppIdentifierPrefix)com.mkhoatd.ios.Habitica</string>
 	</array>
 </dict>
 </plist>

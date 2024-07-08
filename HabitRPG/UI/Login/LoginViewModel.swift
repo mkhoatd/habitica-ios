@@ -10,9 +10,6 @@ import ReactiveCocoa
 import ReactiveSwift
 import AppAuth
 import AuthenticationServices
-#if !targetEnvironment(macCatalyst)
-import FirebaseAnalytics
-#endif
 
 enum LoginViewAuthType {
     case none
@@ -284,9 +281,6 @@ class LoginViewModel: LoginViewModelType, LoginViewModelInputs, LoginViewModelOu
                                         email: authValues.email ?? "")
                     .observeValues { loginResult in
                     if loginResult != nil {
-                        #if !targetEnvironment(macCatalyst)
-                        Analytics.logEvent("register", parameters: nil)
-                        #endif
                         self.onSuccessfulLogin(true)
                     } else {
                         self.loadingIndicatorVisibilityObserver.send(value: false)

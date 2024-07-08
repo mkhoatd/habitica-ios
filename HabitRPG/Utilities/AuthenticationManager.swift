@@ -17,7 +17,7 @@ protocol AuthenticationStorage {
 }
 
 class KeychainAuthenticationStorage: AuthenticationStorage {
-    private let localKeychain = Keychain(service: "com.habitrpg.ios.Habitica", accessGroup: "group.habitrpg.habitica")
+    private let localKeychain = Keychain(service: "com.mkhoatd.ios.Habitica", accessGroup: "group.mkhoatd.habitica")
 
     private var keychain: Keychain {
         return Keychain(server: "https://habitica.com", protocolType: .https)

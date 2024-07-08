@@ -44,11 +44,9 @@ class TaskTableViewController: BaseTableViewController, UISearchBarDelegate, UIT
         let nib = UINib(nibName: getCellNibName() ?? "", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
                 
-        #if !targetEnvironment(macCatalyst)
         let refresher = HabiticaRefresControl()
         refresher.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl = refresher
-        #endif
         
         searchBar.placeholder = L10n.search
         searchBar.delegate = self
@@ -71,7 +69,10 @@ class TaskTableViewController: BaseTableViewController, UISearchBarDelegate, UIT
         tableView.dropDelegate = self
         tableView.dragInteractionEnabled = true
         
-        navigationItem.leftBarButtonItem?.title = L10n.filter
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+        navigationItem.rightBarButtonItem?.accessibilityLabel = L10n.Tasks.addX(readableName ?? "")
+        navigationItem.rightBarButtonItems = [addButton]
+        navigationItem.title = "Tasks"
     }
     
     func createDataSource() {
@@ -92,6 +93,7 @@ class TaskTableViewController: BaseTableViewController, UISearchBarDelegate, UIT
         tableView.separatorColor = theme.contentBackgroundColor
         searchBarWrapper.backgroundColor = theme.contentBackgroundColor
         searchBarCancelButton.setTitleColor(theme.tintColor, for: .normal)
+        navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +112,7 @@ class TaskTableViewController: BaseTableViewController, UISearchBarDelegate, UIT
         dataSource?.tableView = tableView
         
         navigationItem.rightBarButtonItem?.accessibilityLabel = L10n.Tasks.addX(readableName ?? "")
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -143,6 +146,11 @@ class TaskTableViewController: BaseTableViewController, UISearchBarDelegate, UIT
     }
     
     private var filterCount = 0
+    
+    @objc
+    func addTask() {
+       perform(segue: StoryboardSegue.Main.formSegue) 
+    }
     
     @objc
     func didChangeFilter() {

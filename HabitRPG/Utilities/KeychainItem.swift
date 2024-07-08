@@ -127,7 +127,7 @@ struct KeychainItem {
      */
     static var currentUserIdentifier: String {
         do {
-            let storedIdentifier = try KeychainItem(service: "com.habitrpg.ios.habitica", account: "userIdentifier").readItem()
+            let storedIdentifier = try KeychainItem(service: "com.mkhoatd.ios.Habitica", account: "userIdentifier").readItem()
             return storedIdentifier
         } catch {
             return ""
@@ -136,7 +136,7 @@ struct KeychainItem {
     
     static func deleteUserIdentifierFromKeychain() {
         do {
-            try KeychainItem(service: "com.habitrpg.ios.habitica", account: "userIdentifier").deleteItem()
+            try KeychainItem(service: "com.mkhoatd.ios.Habitica", account: "userIdentifier").deleteItem()
         } catch {
             logger.log("Unable to delete userIdentifier from keychain")
         }

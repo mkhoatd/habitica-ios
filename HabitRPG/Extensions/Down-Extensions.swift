@@ -257,14 +257,34 @@ private class HabiticaStyler: DownStyler {
         }
         str.addAttribute(.link, value: url, range: range)
     }
+//    override func style(image str: NSMutableAttributedString, title: String?, url: String?) {
+//        if let imageURL = URL(string: url ?? ""), let data = try? Data(contentsOf: imageURL) {
+//            let attachment = NSTextAttachment()
+//            let resizableImage = UIImage(data: data)
+//            attachment.image = resizableImage?.resize(maxWidthHeight: 200)
+//            let addedString = NSAttributedString(attachment: attachment)
+//            str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
+//        }
+//    }
     override func style(image str: NSMutableAttributedString, title: String?, url: String?) {
-        if let imageURL = URL(string: url ?? ""), let data = try? Data(contentsOf: imageURL) {
-            let attachment = NSTextAttachment()
-            let resizableImage = UIImage(data: data)
-            attachment.image = resizableImage?.resize(maxWidthHeight: 200)
-            let addedString = NSAttributedString(attachment: attachment)
-            str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
+        guard let imageURL = URL(string: url ?? "") else { return }
+
+        let task = URLSession.shared.dataTask(with: imageURL) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Failed to load image data: \(String(describing: error))")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let resizableImage = UIImage(data: data)?.resize(maxWidthHeight: 200) {
+                    let attachment = NSTextAttachment()
+                    attachment.image = resizableImage
+                    let addedString = NSAttributedString(attachment: attachment).string
+                    str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
+                }
+            }
         }
+        task.resume()
     }
 }
 

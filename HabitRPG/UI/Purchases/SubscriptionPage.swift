@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 import SwiftyStoreKit
-import FirebaseAnalytics
 import ReactiveSwift
 import Habitica_Models
 import SwiftUIX
@@ -213,7 +212,6 @@ class SubscriptionViewModel: ObservableObject {
                 self.verifyAndSubscribe(product)
                 logger.log("Purchase Success: \(product.productId)")
             case .error(let error):
-                Analytics.logEvent("purchase_failed", parameters: ["error": error.localizedDescription, "code": error.errorCode])
 
                 logger.log("Purchase Failed: \(error)", level: .error)
             case .deferred:

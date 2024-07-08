@@ -12,15 +12,14 @@ import StoreKit
 import ReactiveSwift
 import Habitica_Models
 import PinLayout
-import FirebaseAnalytics
 import SwiftUIX
 
 // swiftlint:disable:next type_body_length
 class SubscriptionViewController: BaseTableViewController {
 
     @IBOutlet weak private var restorePurchaseButton: UIButton!
-    let identifiers = ["subscription1month", "com.habitrpg.ios.habitica.subscription.3month",
-                       "com.habitrpg.ios.habitica.subscription.6month", "com.habitrpg.ios.habitica.subscription.12month"
+    let identifiers = ["subscription1month", "com.mkhoatd.ios.Habitica.subscription.3month",
+                       "com.mkhoatd.ios.Habitica.subscription.6month", "com.mkhoatd.ios.Habitica.subscription.12month"
     ]
 
     private let userRepository = UserRepository()
@@ -405,7 +404,6 @@ class SubscriptionViewController: BaseTableViewController {
                 self.verifyAndSubscribe(product)
                 logger.log("Purchase Success: \(product.productId)")
             case .error(let error):
-                Analytics.logEvent("purchase_failed", parameters: ["error": error.localizedDescription, "code": error.errorCode])
 
                 logger.log("Purchase Failed: \(error)", level: .error)
             case .deferred:

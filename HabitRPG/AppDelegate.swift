@@ -13,9 +13,6 @@ import Habitica_Models
 import RealmSwift
 import ReactiveSwift
 import Firebase
-#if !targetEnvironment(macCatalyst)
-import FirebaseAnalytics
-#endif
 import SwiftyStoreKit
 import StoreKit
 import UserNotifications
@@ -47,7 +44,6 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
         
         if !isBeingTested {
             setupLogging()
-            setupAnalytics()
             setupPurchaseHandling()
             setupFirebase()
         }
@@ -113,10 +109,6 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
         #if !targetEnvironment(macCatalyst)
         Crashlytics.crashlytics().setCustomValue(-(NSTimeZone.local.secondsFromGMT() / 60), forKey: "timesoze_offset")
         Crashlytics.crashlytics().setCustomValue(LanguageHandler.getAppLanguage().code, forKey: "app_language")
-        Analytics.setUserProperty(LanguageHandler.getAppLanguage().code, forName: "app_language")
-        Analytics.setUserProperty(configRepository.testingLevel.rawValue.lowercased(), forName: "app_testing_level")
-        Analytics.setUserProperty(UIApplication.shared.alternateIconName, forName: "app_icon")
-        Analytics.setUserProperty(userDefaults.string(forKey: "initialScreenURL"), forName: "launch_screen")
         #endif
     }
     
@@ -134,15 +126,6 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
         FirebaseApp.configure()
         (logger as? RemoteLogger)?.setUserID(userID)
         logger.isProduction = HabiticaAppDelegate.isRunningLive()
-    }
-    
-    func setupAnalytics() {
-        Amplitude.instance().initializeApiKey(Secrets.amplitudeApiKey)
-        Amplitude.instance().setUserId(AuthenticationManager.shared.currentUserId)
-        let userDefaults = UserDefaults.standard
-        Amplitude.instance().setUserProperties(["iosTimezoneOffset": -(NSTimeZone.local.secondsFromGMT() / 60),
-                                                 "launch_screen": userDefaults.string(forKey: "initialScreenURL") ?? ""
-        ])
     }
     
     func setupPurchaseHandling() {
@@ -226,7 +209,7 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
             config.inMemoryIdentifier = String(Date().timeIntervalSince1970)
         } else {
             let fileUrl = FileManager.default
-                .containerURL(forSecurityApplicationGroupIdentifier: "group.habitrpg.habitica")?
+                .containerURL(forSecurityApplicationGroupIdentifier: "group.mkhoatd.habitica")?
                 .appendingPathComponent("habitica.realm")
             if let url = fileUrl {
                 config.fileURL = url
@@ -405,11 +388,6 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
         analyticsData["keywordMatchtype"] = data["iad-keyword-matchtype"]
 
         UserDefaults.standard.set(true, forKey: "userWasAttributed")
-        Amplitude.instance().setUserProperties([
-            "clickedSearchAd": data["iad-attribution"] ?? "",
-            "searchAdName": data["iad-campaign-name"] ?? "",
-            "searchAdConversionDate": data["iad-conversion-date"] ?? ""
-        ])
     }
     
     static func isRunningScreenshots() -> Bool {

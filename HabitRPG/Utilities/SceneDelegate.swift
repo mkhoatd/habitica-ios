@@ -8,9 +8,6 @@
 
 import UIKit
 import Firebase
-#if !targetEnvironment(macCatalyst)
-import FirebaseAnalytics
-#endif
 import WidgetKit
 import ReactiveSwift
 
@@ -90,7 +87,6 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
         let defaults = UserDefaults.standard
         let themeName = ThemeName(rawValue: defaults.string(forKey: "theme") ?? "") ?? ThemeName.defaultTheme
         #if !targetEnvironment(macCatalyst)
-        Analytics.setUserProperty(themeName.rawValue, forName: "theme")
         #endif
     }
     
@@ -120,7 +116,6 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
             switch result {
             case let .success(info):
                 #if !targetEnvironment(macCatalyst)
-                Analytics.setUserProperty(String(info.count), forName: "widgetCount")
                 #endif
             case let .failure(error):
                 logger.log(error)

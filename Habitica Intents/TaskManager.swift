@@ -69,7 +69,7 @@ class TaskManager: BaseRepository<TaskLocalRepository> {
         var config = Realm.Configuration.defaultConfiguration
         config.deleteRealmIfMigrationNeeded = true
         let fileUrl = FileManager.default
-            .containerURL(forSecurityApplicationGroupIdentifier: "group.habitrpg.habitica")?
+            .containerURL(forSecurityApplicationGroupIdentifier: "group.mkhoatd.habitica")?
             .appendingPathComponent("habitica.realm")
         if let url = fileUrl {
             config.fileURL = url

@@ -1,5 +1,5 @@
 {
-    "Simulator Target Bundle": "com.habitrpg.ios.habitica",
+    "Simulator Target Bundle": "com.mkhoatd.ios.Habitica",
     "aps": {
         "alert": {
             "body": "This is a test",

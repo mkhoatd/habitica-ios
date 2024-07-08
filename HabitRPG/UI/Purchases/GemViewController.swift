@@ -96,13 +96,13 @@ class GemViewController: BaseCollectionViewController, UICollectionViewDelegateF
         cell.backgroundColor = .purple400
 
         var amount = 0
-        if product.productIdentifier == "com.habitrpg.ios.Habitica.4gems" {
+        if product.productIdentifier == "com.mkhoatd.ios.Habitica.4gems" {
             amount = 4
-        } else if product.productIdentifier == "com.habitrpg.ios.Habitica.21gems" {
+        } else if product.productIdentifier == "com.mkhoatd.ios.Habitica.21gems" {
             amount = 21
-        } else if product.productIdentifier == "com.habitrpg.ios.Habitica.42gems" {
+        } else if product.productIdentifier == "com.mkhoatd.ios.Habitica.42gems" {
             amount = 42
-        } else if product.productIdentifier == "com.habitrpg.ios.Habitica.84gems" {
+        } else if product.productIdentifier == "com.mkhoatd.ios.Habitica.84gems" {
             amount = 84
         }
         cell.setGemAmount(amount)
