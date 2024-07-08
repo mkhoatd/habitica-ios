@@ -68,8 +68,10 @@ class TaskManager: BaseRepository<TaskLocalRepository> {
     func setupDatabase() {
         var config = Realm.Configuration.defaultConfiguration
         config.deleteRealmIfMigrationNeeded = true
+        // let teamIdentifierPrefix = Bundle.main.infoDictionary!["TeamIdentifierPrefix"] as! String
+        // let gi = "\(teamIdentifierPrefix).com.mkhoatd.habitica"
         let fileUrl = FileManager.default
-            .containerURL(forSecurityApplicationGroupIdentifier: "group.mkhoatd.habitica")?
+            .containerURL(forSecurityApplicationGroupIdentifier: "group.com.mkhoatd.habitica")?
             .appendingPathComponent("habitica.realm")
         if let url = fileUrl {
             config.fileURL = url

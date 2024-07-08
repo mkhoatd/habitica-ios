@@ -17,7 +17,14 @@ protocol AuthenticationStorage {
 }
 
 class KeychainAuthenticationStorage: AuthenticationStorage {
-    private let localKeychain = Keychain(service: "com.mkhoatd.ios.Habitica", accessGroup: "group.mkhoatd.habitica")
+    let localKeychain: Keychain
+    init() {
+        let appIdentifierPrefix = Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String
+        let accessGroup = "\(appIdentifierPrefix)com.mkhoatd.ios.Habitica"
+        self.localKeychain = Keychain(service: "com.mkhoatd.ios.Habitica", accessGroup: accessGroup)
+        print("Keychain access group: \(accessGroup)")
+    }
+
 
     private var keychain: Keychain {
         return Keychain(server: "https://habitica.com", protocolType: .https)
