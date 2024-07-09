@@ -18,7 +18,28 @@ extension Down {
         textColor: UIColor = UIColor.gray100,
         onComplete: @escaping ((NSMutableAttributedString?) -> Void)
     ) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let string = try? self.toHabiticaAttributedString()
+            DispatchQueue.main.async {
+                onComplete(string)
+            }
+        }
+    }
+    func toHabiticaAttributedStringAsync(
+        baseSize: CGFloat = 15,
+        textColor: UIColor = ThemeService.shared.theme.primaryTextColor, useAST: Bool = true,
+        highlightUsernames: Bool = true,
+        onComplete: @escaping ((NSMutableAttributedString?) -> Void)
+    ) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let string = try? self.toHabiticaAttributedString(baseSize: baseSize, textColor: textColor, highlightUsernames: highlightUsernames)
+            DispatchQueue.main.async {
+                onComplete(string)
+            }
+        }
+    }
+    func toHabiticaAttributedStringAsync(onComplete: @escaping ((NSMutableAttributedString?) -> Void)) {
+        DispatchQueue.global(qos: .userInitiated).async {
             let string = try? self.toHabiticaAttributedString()
             DispatchQueue.main.async {
                 onComplete(string)
@@ -179,6 +200,15 @@ class HabiticaMarkdownHelper: NSObject {
         }
         return NSMutableAttributedString(string: text)
     }
+    @objc
+    static func toHabiticaAttributedStringAsync(_ text: String, onComplete: @escaping ((NSMutableAttributedString?) -> Void)) throws {
+        Down(markdownString: text).toHabiticaAttributedStringAsync(onComplete: { str in
+            if let attributedString = str {
+                onComplete(attributedString)
+            }
+            onComplete(NSMutableAttributedString(string: text))
+        })
+    }
 }
 
 private class HabiticaStyler: DownStyler {
@@ -308,7 +338,6 @@ private class HabiticaStyler: DownStyler {
             attachment.image = resizableImage?.resize(maxWidthHeight: 200)
             let addedString = NSAttributedString(attachment: attachment)
             str.replaceCharacters(in: NSRange(location: 0, length: str.length), with: addedString)
-            print("final stringggggg \(str.string)")
         }
     }
     // override func style(image str: NSMutableAttributedString, title: String?, url: String?) {

@@ -11,3 +11,4 @@ CUSTOM_DOMAIN = habitica.com
 
 // Set to true if you are running a local instance of habitica
 DISABLE_SSL = false
+OTHER_CFLAGS = $(inherited) -gen-cdb-fragment-path $(PROJECT_DIR)/CompilationDatabase

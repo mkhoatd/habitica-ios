@@ -22,6 +22,14 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
+
+        #if targetEnvironment(macCatalyst)
+        if let titlebar = windowScene.titlebar {
+            titlebar.titleVisibility = .hidden
+            titlebar.toolbar = nil
+        }
+        #endif
+
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = StoryboardScene.Intro.initialScene.instantiate()
         window?.makeKeyAndVisible()
@@ -85,9 +93,7 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
     func setupTheme() {
         ThemeService.shared.updateDarkMode()
         let defaults = UserDefaults.standard
-        let themeName = ThemeName(rawValue: defaults.string(forKey: "theme") ?? "") ?? ThemeName.defaultTheme
-        #if !targetEnvironment(macCatalyst)
-        #endif
+        let _ = ThemeName(rawValue: defaults.string(forKey: "theme") ?? "") ?? ThemeName.defaultTheme
     }
     
     private func cleanAndRefresh() {

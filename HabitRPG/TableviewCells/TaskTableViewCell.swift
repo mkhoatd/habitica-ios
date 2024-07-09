@@ -84,18 +84,34 @@ class TaskTableViewCell: UITableViewCell, UITextViewDelegate {
         self.titleLabel.textContainerInset = UIEdgeInsets.zero
         self.subtitleLabel.textContainerInset = UIEdgeInsets.zero
         if let text = task.text {
-            let mutableString = try? Down(markdownString: text.unicodeEmoji).toHabiticaAttributedString(baseSize: 15, textColor: ThemeService.shared.theme.primaryTextColor)
-            let strLength = mutableString?.string.count ?? 0
-            let style = NSMutableParagraphStyle()
-            style.lineSpacing = 2
-            mutableString?.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: strLength))
+             let mutableString = try? Down(markdownString: text.unicodeEmoji).toHabiticaAttributedString(baseSize: 15, textColor: ThemeService.shared.theme.primaryTextColor)
+             let strLength = mutableString?.string.count ?? 0
+             let style = NSMutableParagraphStyle()
+             style.lineSpacing = 2
+             mutableString?.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: strLength))
 
-            self.titleLabel.attributedText = mutableString
+             self.titleLabel.attributedText = mutableString
+
+//            Down(markdownString: text.unicodeEmoji).toHabiticaAttributedStringAsync(baseSize: 15, textColor: ThemeService.shared.theme.primaryTextColor, onComplete: { str in
+//                if let mutableString = str {
+//                    let strLength = mutableString.string.count
+//                    let style = NSMutableParagraphStyle()
+//                    style.lineSpacing = 2
+//                    mutableString.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: strLength))
+//                    
+//                    self.titleLabel.attributedText = mutableString
+//                    self.titleLabel.setAttributedMarkedText(mutableString, selectedRange: NSRange(location: 0, length: mutableString.length))
+//                }
+//            })
         }
 
         if let trimmedNotes = task.notes?.trimmingCharacters(in: .whitespacesAndNewlines), trimmedNotes.isEmpty == false {
             self.subtitleLabel.font = UIFontMetrics.default.scaledSystemFont(ofSize: 11)
             self.subtitleLabel.attributedText = try? Down(markdownString: trimmedNotes.unicodeEmoji).toHabiticaAttributedString(baseSize: 11, textColor: ThemeService.shared.theme.ternaryTextColor)
+//            Down(markdownString: trimmedNotes.unicodeEmoji).toHabiticaAttributedStringAsync(baseSize: 11, textColor: ThemeService.shared.theme.ternaryTextColor, onComplete: {str in
+//                self.subtitleLabel.setAttributedMarkedText(str, selectedRange: NSRange(location: 0, length: str?.length ?? 0))
+//                self.subtitleLabel.layoutManager.invalidateLayout(forCharacterRange: NSRange(location: 0, length: str?.length ?? 0), actualCharacterRange: NSRange(location: 0, length: str?.length ?? 0)?)
+//            })
             self.subtitleLabel.isHidden = false
         } else {
             self.subtitleLabel.text = nil

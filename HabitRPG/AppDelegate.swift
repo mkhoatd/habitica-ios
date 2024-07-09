@@ -41,7 +41,7 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
         Measurements.start(identifier: "task list loaded")
         logger = RemoteLogger()
         self.application = application
-        
+    
         if !isBeingTested {
             setupLogging()
             setupPurchaseHandling()
@@ -58,7 +58,6 @@ class HabiticaAppDelegate: UIResponder, MessagingDelegate, UIApplicationDelegate
         }
         
         handleInitialLaunch()
-        applySearchAdAttribution()
         Measurements.stop(identifier: "didFinishLaunchingWithOptions")
         return true
     }

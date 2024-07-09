@@ -271,6 +271,9 @@ class ItemsViewController: BaseTableViewController {
         textView.isScrollEnabled = false
         textView.isSelectable = false
         textView.attributedText = try? HabiticaMarkdownHelper.toHabiticaAttributedString(quest.notes ?? "")
+//         try? HabiticaMarkdownHelper.toHabiticaAttributedStringAsync(quest.notes ?? "", onComplete: {str in
+//             textView.setAttributedMarkedText(str, selectedRange: NSRange(location: 0, length: str?.length ?? 0))
+//         })
         textView.font = UIFontMetrics.default.scaledSystemFont(ofSize: 14)
         textView.textColor = ThemeService.shared.theme.primaryTextColor
         textView.backgroundColor = ThemeService.shared.theme.contentBackgroundColor

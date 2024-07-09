@@ -12,8 +12,6 @@
 	"argv": [
 		"/opt/homebrew/bin/xcode-build-server"
 	],
-	"workspace": "/Users/mkhoatd/Developer/habitica-ios/Habitica.xcworkspace",
-	"build_root": "/Users/mkhoatd/Library/Developer/Xcode/DerivedData/Habitica-bkqawxjegrmqzdgkscxusominoew",
-	"scheme": "Habitica",
-	"kind": "xcode"
+	"kind": "manual",
+	"indexStorePath": "/Users/mkhoatd/Library/Developer/Xcode/DerivedData/Habitica-bkqawxjegrmqzdgkscxusominoew/Index.noindex/DataStore"
 }
